@@ -48,6 +48,7 @@ h1 { font: 700 clamp(26px, 6.5vw, 36px)/1.15 var(--display); margin: 6px 0 4px; 
 h1 span { background: var(--cyd); color: var(--cyd-ink); padding: 0 8px; border-radius: 8px; }
 header p { margin: 0; color: var(--muted); font-size: 15px; }
 section { padding: 22px; }
+#demo { padding-top: 6px; }
 h2 { font: 700 21px/1.3 var(--display); margin: 0 0 4px; display: flex; align-items: center; gap: 10px; }
 h2 .count { margin-left: auto; font: 600 13px/1 var(--body); background: var(--ink); color: var(--paper);
   padding: 6px 12px; border-radius: 999px; }
@@ -65,6 +66,7 @@ h2 .count { margin-left: auto; font: 600 13px/1 var(--body); background: var(--i
 .badge { position: absolute; top: 8px; left: 8px; font: 600 12px/1 var(--body); color: #fff;
   padding: 6px 10px; border-radius: 999px; box-shadow: 0 1px 4px rgba(0,0,0,.3); }
 .badge.game { background: var(--game); } .badge.tool { background: var(--tool); }
+.badge.demo { left: auto; right: 8px; background: var(--cyd); color: var(--cyd-ink); }
 .body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .body h3 { font: 700 18px/1.25 var(--display); margin: 0; }
 .body p { margin: 0; font-size: 14px; color: var(--muted); flex: 1; }
@@ -84,7 +86,7 @@ footer { text-align: center; padding: 18px 22px 26px; color: var(--muted); font-
 /* the bottom bar */
 nav { position: fixed; left: 50%; bottom: max(12px, env(safe-area-inset-bottom)); transform: translateX(-50%);
   width: min(760px, calc(100% - 24px)); background: var(--ink); border: 3px solid var(--cyd); border-radius: 20px;
-  display: grid; grid-template-columns: repeat(4, 1fr); box-shadow: var(--shadow); z-index: 5; }
+  display: grid; grid-template-columns: repeat(3, 1fr); box-shadow: var(--shadow); z-index: 5; }
 :root[data-theme="dark"] nav { background: #0b1424; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) nav { background: #0b1424; } }
 nav a { text-decoration: none; color: #dfe6f3; display: grid; justify-items: center; gap: 2px; padding: 9px 4px 8px;
@@ -115,14 +117,20 @@ nav a.on { color: var(--cyd); }
   </header>
 
   <section id="projects">
-    <h2>โปรเจคทั้งหมด <span class="count" id="count">4 โปรเจค</span></h2>
-    <p class="sub">แตะ "ติดตั้ง" เสียบบอร์ดเข้าคอม (Chrome / Edge) หรือมือถือ Android (สาย OTG) แล้วกดตามขั้นตอน</p>
+    <h2>ฟรี <span class="count" id="count-free"></span></h2>
+    <p class="sub">ใช้ได้ครบทุกอย่าง ไม่มีค่าใช้จ่าย · แตะ "ติดตั้ง" เสียบบอร์ดเข้าคอม (Chrome / Edge) หรือมือถือ Android (สาย OTG) แล้วกดตามขั้นตอน</p>
     <div class="chips" role="group" aria-label="กรอง">
       <button aria-pressed="true" data-f="all">ทั้งหมด</button>
       <button aria-pressed="false" data-f="game">เกม</button>
       <button aria-pressed="false" data-f="tool">เครื่องมือ</button>
     </div>
-    <div class="grid" id="grid"></div>
+    <div class="grid" id="grid-free"></div>
+  </section>
+
+  <section id="demo">
+    <h2>เดโม <span class="count" id="count-demo"></span></h2>
+    <p class="sub">ติดตั้งลองใช้ได้ฟรี ส่วนที่เหลือเปิดได้ด้วยรหัสปลดล็อก ขอทาง LINE ร้าน</p>
+    <div class="grid" id="grid-demo"></div>
   </section>
 
   <section id="line">
@@ -138,18 +146,6 @@ nav a.on { color: var(--cyd); }
     </div>
   </section>
 
-  <section id="donate">
-    <h2>สนับสนุนเรา</h2>
-    <p class="sub">ถ้าชอบผลงานและอยากให้มีของใหม่ๆ เลี้ยงกาแฟได้ตามสะดวก</p>
-    <div class="panel">
-      <img src="img/donate_qr.png" alt="QR พร้อมเพย์ สำหรับบริจาค">
-      <div>
-        <p><b>พร้อมเพย์ (PromptPay)</b></p>
-        <p class="small">สแกนด้วยแอปธนาคารไหนก็ได้ ใส่จำนวนเงินเองได้เลย ขอบคุณมากครับ ♥</p>
-      </div>
-    </div>
-  </section>
-
   <footer>sfttech2000 · by tee &amp; claude</footer>
 </div>
 
@@ -157,55 +153,63 @@ nav a.on { color: var(--cyd); }
   <a href="#home" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg>หน้าแรก</a>
   <a href="#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M8 21h8M12 18v3"/></svg>โปรเจค</a>
   <a href="#line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-.8 0-1.6-.1-2.3-.2L5 20l.9-3.6C4.1 15.1 3 13.1 3 11c0-3.9 4-7 9-7z"/></svg>LINE ร้าน</a>
-  <a href="#donate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>บริจาค</a>
 </nav>
 
 <script>
-// one row per project: add a line here for a new one
+// one row per project: add a line here for a new one (group: 'free' on top, 'demo' below)
 const SITE = 'https://sfttech2000.github.io/';
 const PROJECTS = [
-  { id: 'pocket-fishing-flasher', name: 'Pocket Fishing', kind: 'game', cover: 'img/fishing.jpg', manifest: 'manifest.json',
+  { id: 'pocket-fishing-flasher', name: 'Pocket Fishing', kind: 'game', cover: 'img/fishing.jpg', manifest: 'manifest.json', group: 'free',
     text: 'เกมตกปลาสบายๆ สะสมปลาลงสมุด เลี้ยงในตู้ อัปเบ็ด ต่อเรือออกทะเลลึก มีเสียงเพลง' },
-  { id: 'pocket-wilds-flasher', name: 'Pocket Wilds', kind: 'game', cover: 'img/wilds.jpg', manifest: 'manifest.json',
+  { id: 'pocket-wilds-flasher', name: 'Pocket Wilds', kind: 'game', cover: 'img/wilds.jpg', manifest: 'manifest.json', group: 'free',
     text: 'เลี้ยงสัตว์คู่ใจที่ตะลุยด่านเองตลอดเวลา อัปเกรด แต่งตัว สู้บอส (idle RPG)' },
-  { id: 'cyd-nas-pro-flasher', name: 'CYD-NAS Pro', kind: 'tool', cover: 'img/nas_pro.jpg', manifest: 'manifest.json',
+  { id: 'cyd-nas-pro-flasher', name: 'CYD-NAS Pro', kind: 'tool', cover: 'img/nas_pro.jpg', manifest: 'manifest.json', group: 'demo',
     text: 'NAS microSD ผ่านเว็บ + เครื่องเล่นเพลง EQ วิทยุออนไลน์ทั่วโลก ดูรูป นาฬิกา · ต้องมีรหัสปลดล็อก (ขอทาง LINE)' },
-  { id: 'cyd-nas-flasher', name: 'CYD-NAS Lite', kind: 'tool', cover: 'img/nas.jpg', manifest: 'manifest.json',
+  { id: 'cyd-nas-flasher', name: 'CYD-NAS Lite', kind: 'tool', cover: 'img/nas.jpg', manifest: 'manifest.json', group: 'free',
     text: 'รุ่นฟรี: ที่เก็บไฟล์ในบ้านด้วยการ์ด microSD อัปโหลด/ดาวน์โหลดผ่านหน้าเว็บ ทุกเครื่องในวง WiFi' },
-  { id: 'nerdminer-cyd-flasher', name: 'NerdMiner CYD', kind: 'tool', cover: 'img/nerdminer.jpg', manifest: 'manifest.json',
+  { id: 'nerdminer-cyd-flasher', name: 'NerdMiner CYD', kind: 'tool', cover: 'img/nerdminer.jpg', manifest: 'manifest.json', group: 'demo',
     text: 'ขุด Bitcoin + จอข้อมูลบนโต๊ะ: ราคา BTC ทอง หุ้น อากาศ PM2.5 หวย วันพระ เมนูไทย' },
 ];
 const KIND = { game: 'เกม', tool: 'เครื่องมือ' };
 
-const grid = document.getElementById('grid');
+const grids = { free: document.getElementById('grid-free'), demo: document.getElementById('grid-demo') };
 for (const p of PROJECTS) {
   const url = SITE + p.id + '/';
   const cover = `<img src="${p.cover}" alt="${p.name}" loading="lazy">`;
   const el = document.createElement('article');
   el.className = 'card'; el.dataset.kind = p.kind;
-  el.innerHTML = `<div class="cover">${cover}<span class="badge ${p.kind}">${KIND[p.kind]}</span></div>
+  const demo = p.group === 'demo' ? '<span class="badge demo">เดโม</span>' : '';
+  el.innerHTML = `<div class="cover">${cover}<span class="badge ${p.kind}">${KIND[p.kind]}</span>${demo}</div>
     <div class="body"><h3>${p.name}</h3><p>${p.text}</p>
       <div class="meta"><span>CYD 2.8"</span><span class="ver">…</span></div>
       <a class="install" href="${url}">ติดตั้ง ›</a></div>`;
-  grid.appendChild(el);
+  grids[p.group].appendChild(el);
   // the version comes from the installer itself: a new release needs no edit here
   fetch(url + p.manifest).then(r => r.json()).then(m => { el.querySelector('.ver').textContent = 'v' + m.version.replace(/-.*/, ''); })
     .catch(() => el.querySelector('.ver').remove());
 }
 
+// the filter works on both groups; each group counts what it shows
+const filter = (f) => {
+  for (const g in grids) {
+    let n = 0;
+    grids[g].querySelectorAll('.card').forEach(c => { const show = f === 'all' || c.dataset.kind === f; c.hidden = !show; n += show; });
+    document.getElementById('count-' + g).textContent = n + ' โปรเจค';
+    if (g === 'demo') document.getElementById('demo').hidden = n === 0;   // (the free group keeps the filter buttons)
+  }
+};
 document.querySelectorAll('.chips button').forEach(b => b.onclick = () => {
   document.querySelectorAll('.chips button').forEach(x => x.setAttribute('aria-pressed', x === b));
-  let n = 0;
-  grid.querySelectorAll('.card').forEach(c => { const show = b.dataset.f === 'all' || c.dataset.kind === b.dataset.f; c.hidden = !show; n += show; });
-  document.getElementById('count').textContent = n + ' โปรเจค';
+  filter(b.dataset.f);
 });
+filter('all');
 
 // the bottom bar lights the section in view
 const links = [...document.querySelectorAll('nav a')];
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
 }), { rootMargin: '-45% 0px -50% 0px' });
-['home', 'projects', 'line', 'donate'].forEach(id => io.observe(document.getElementById(id)));
+['home', 'projects', 'line'].forEach(id => io.observe(document.getElementById(id)));
 </script>
 </body>
 </html>
