@@ -83,7 +83,9 @@ h2 .count { margin-left: auto; font: 600 13px/1 var(--body); background: var(--i
   color: #fff; padding: 12px 18px; border-radius: 12px; }
 .btn-shop { display: inline-block; text-decoration: none; font: 700 16px/1 var(--display); background: var(--shop-orange);
   color: #fff; padding: 12px 18px; border-radius: 12px; }
-.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.support { margin-top: 12px; display: grid; gap: 8px; justify-items: start; }
+.support p { margin: 0; font-size: 14px; }
+@media (max-width: 520px) { .support { justify-items: center; } }
 .small { font-size: 13px; color: var(--muted); }
 footer { text-align: center; padding: 18px 22px 26px; color: var(--muted); font-size: 13px; border-top: 2px dashed var(--line); }
 /* the bottom bar */
@@ -116,6 +118,10 @@ nav a.on { color: var(--cyd); }
       <div class="kicker">sfttech2000 · CYD projects</div>
       <h1>โปรเจค <span>จอเหลือง</span></h1>
       <p>เกมและเครื่องมือสำหรับบอร์ด ESP32-2432S028R (CYD 2.8") ติดตั้งผ่านเว็บได้เลย ไม่ต้องลงโปรแกรม</p>
+      <div class="support">
+        <p>ท่านสามารถสนับสนุนผู้สร้างด้วยการซื้อสินค้า Shopee จากลิงก์นี้</p>
+        <a class="btn-shop" href="https://collshp.com/ashiashi603?view=storefront" target="_blank" rel="noopener">ซื้อสินค้า Shopee</a>
+      </div>
     </div>
   </header>
 
@@ -138,16 +144,13 @@ nav a.on { color: var(--cyd); }
 
   <section id="line">
     <h2>ติดต่อร้าน</h2>
-    <p class="sub">ซื้อบอร์ดและของในร้านได้ที่ Shopee · ขอรหัสปลดล็อกเกม ถามวิธีติดตั้ง แจ้งปัญหา ทักมาทาง LINE ได้เลย</p>
+    <p class="sub">สั่งซื้อ ขอรหัสปลดล็อกเกม ถามวิธีติดตั้ง แจ้งปัญหา ทักมาทาง LINE ได้เลย</p>
     <div class="panel">
       <img src="img/line_qr.png" alt="QR LINE ร้าน sfttech2000">
       <div>
         <p><b>LINE Official: sfttech2000</b></p>
         <p class="small">สแกน QR ด้วยแอป LINE หรือแตะปุ่ม (บนมือถือ)</p>
-        <div class="btns">
-          <a class="btn-line" href="https://lin.ee/SjUh1ct" target="_blank" rel="noopener">เพิ่มเพื่อนใน LINE</a>
-          <a class="btn-shop" href="https://collshp.com/ashiashi603?view=storefront" target="_blank" rel="noopener">ร้านค้าใน Shopee</a>
-        </div>
+        <a class="btn-line" href="https://lin.ee/SjUh1ct" target="_blank" rel="noopener">เพิ่มเพื่อนใน LINE</a>
       </div>
     </div>
   </section>
