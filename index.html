@@ -166,7 +166,7 @@ nav a.on { color: var(--cyd); }
 </nav>
 
 <script>
-// one row per project: add a line here for a new one (group: 'free' on top, 'demo' below)
+// one row per project: add a line here for a new one (group: 'free' on top, 'demo' below; hidden: true = not listed)
 const SITE = 'https://sfttech2000.github.io/';
 const PROJECTS = [
   { id: 'pocket-fishing-flasher', name: 'Pocket Fishing', kind: 'game', cover: 'img/fishing.jpg', manifest: 'manifest.json', group: 'free',
@@ -183,13 +183,13 @@ const PROJECTS = [
     text: 'รุ่นฟรี: ที่เก็บไฟล์ในบ้านด้วยการ์ด microSD อัปโหลด/ดาวน์โหลดผ่านหน้าเว็บ ทุกเครื่องในวง WiFi' },
   { id: 'drako-gauge-flasher', name: 'DRAKO GAUGE', kind: 'tool', cover: 'img/drako.jpg', manifest: 'manifest.json', group: 'demo',
     text: 'เกจวัดรถ OBD2 (ELM327 Bluetooth) หน้าเกจหลักใช้ฟรี + มังกรคู่ใจโตตามระยะขับ เดินทาง 8 ที่ ราคาน้ำมันจริง โค้ดเสียภาษาไทย · ทดลองครบ 15 กม. ปลดล็อกโปรโมชั่น 199 บาท' },
-  { id: 'nerdminer-cyd-flasher', name: 'NerdMiner CYD', kind: 'tool', cover: 'img/nerdminer.jpg', manifest: 'manifest.json', group: 'demo',
+  { id: 'nerdminer-cyd-flasher', name: 'NerdMiner CYD', kind: 'tool', cover: 'img/nerdminer.jpg', manifest: 'manifest.json', group: 'demo', hidden: true,
     text: 'ขุด Bitcoin + จอข้อมูลบนโต๊ะ: ราคา BTC ทอง หุ้น อากาศ PM2.5 หวย วันพระ เมนูไทย' },
 ];
 const KIND = { game: 'เกม', tool: 'เครื่องมือ' };
 
 const grids = { free: document.getElementById('grid-free'), demo: document.getElementById('grid-demo') };
-for (const p of PROJECTS) {
+for (const p of PROJECTS.filter(p => !p.hidden)) {
   const url = SITE + p.id + '/';
   const cover = `<img src="${p.cover}" alt="${p.name}" loading="lazy">`;
   const el = document.createElement('article');
