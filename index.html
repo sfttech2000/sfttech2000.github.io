@@ -75,6 +75,11 @@ h2 .count { margin-left: auto; font: 600 13px/1 var(--body); background: var(--i
 .install { margin-top: 6px; display: block; text-align: center; text-decoration: none; font: 700 16px/1 var(--display);
   background: var(--accent); color: #fff; padding: 12px; border-radius: 12px; }
 .install:hover { filter: brightness(1.1); }
+.acts { margin-top: 6px; display: flex; gap: 6px; }
+.acts .install { margin-top: 0; flex: 1; }
+.code { display: flex; align-items: center; justify-content: center; text-decoration: none; font: 700 15px/1 var(--display);
+  color: var(--accent); border: 2px solid var(--accent); padding: 0 12px; border-radius: 12px; }
+.code:hover { background: var(--accent); color: #fff; }
 .panel { display: grid; grid-template-columns: 180px 1fr; gap: 18px; align-items: center; background: var(--card);
   border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
 .panel img { width: 180px; height: 180px; border-radius: 12px; background: #fff; padding: 6px; border: 1px solid var(--line); }
@@ -166,7 +171,8 @@ nav a.on { color: var(--cyd); }
 </nav>
 
 <script>
-// one row per project: add a line here for a new one (group: 'free' on top, 'demo' below; hidden: true = not listed)
+// one row per project: add a line here for a new one (group: 'free' on top, 'demo' below; hidden: true = not listed;
+// board: shown on the card, CYD 2.8" when left out; code: a source link, shown as a button next to install)
 const SITE = 'https://sfttech2000.github.io/';
 const PROJECTS = [
   { id: 'pocket-fishing-flasher', name: 'Pocket Fishing', kind: 'game', cover: 'img/fishing.jpg', manifest: 'manifest.json', group: 'free',
@@ -175,6 +181,9 @@ const PROJECTS = [
     text: 'เลี้ยงสัตว์คู่ใจที่ตะลุยด่านเองตลอดเวลา อัปเกรด แต่งตัว สู้บอส (idle RPG)' },
   { id: 'cyd-bellsky-flasher', name: 'Bell Sky Patrol', kind: 'game', cover: 'img/bellsky.jpg', manifest: 'manifest.json', group: 'free',
     text: 'เกมยิงแนวตั้ง 3 ด่าน ยิงเมฆเก็บกระดิ่ง เก็บพลัง สู้บอส ปลดล็อกยาน 4 ลำ เล่นด้วยนิ้วหรือจอยบลูทูธ' },
+  { id: 'retro-s3-flasher', name: 'Retro S3', kind: 'game', cover: 'img/retro.jpg', manifest: 'manifest.json', group: 'free',
+    board: 'ESP32-S3 2.8"', code: 'https://github.com/sfttech2000/esp32s3_bb_emulator',
+    text: 'เครื่องเล่นเกมย้อนยุค Game Boy, GBC, NES, Master System, Game Gear เล่นด้วยจอยบลูทูธ อ่านเกมจาก microSD (ไม่มีเกมให้) สูตรโกงในตัว 80,000+ · โอเพนซอร์ส' },
   { id: 'cyd-weather-flasher', name: 'CYD Weather', kind: 'tool', cover: 'img/weather.jpg', manifest: 'manifest.json', group: 'free',
     text: 'จอตั้งโต๊ะดูเมฆฝนเคลื่อนไหวบนแผนที่ อากาศตอนนี้ พยากรณ์ 3 วัน และระดับน้ำแม่น้ำ/เขื่อนทั่วไทย เลือกจังหวัดบนจอ' },
   { id: 'cyd-cctv-flasher', name: 'CYD CCTV', kind: 'tool', cover: 'img/cctv.jpg', manifest: 'manifest.json', group: 'free',
@@ -199,8 +208,8 @@ for (const p of PROJECTS.filter(p => !p.hidden)) {
   const demo = p.group === 'demo' ? '<span class="badge demo">เดโม</span>' : '';
   el.innerHTML = `<div class="cover">${cover}<span class="badge ${p.kind}">${KIND[p.kind]}</span>${demo}</div>
     <div class="body"><h3>${p.name}</h3><p>${p.text}</p>
-      <div class="meta"><span>CYD 2.8"</span><span class="ver">…</span></div>
-      <a class="install" href="${url}">ติดตั้ง ›</a></div>`;
+      <div class="meta"><span>${p.board || 'CYD 2.8"'}</span><span class="ver">…</span></div>
+      <div class="acts"><a class="install" href="${url}">ติดตั้ง ›</a>${p.code ? `<a class="code" href="${p.code}" target="_blank" rel="noopener" title="ซอร์สโค้ดบน GitHub">โค้ด</a>` : ''}</div></div>`;
   grids[p.group].appendChild(el);
   // the version comes from the installer itself: a new release needs no edit here
   fetch(url + p.manifest).then(r => r.json()).then(m => { el.querySelector('.ver').textContent = 'v' + m.version.replace(/-.*/, ''); })
